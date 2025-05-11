@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Projects for: {{ user.username }}!</h1>
+    <p>These projects belong to:</p>
+    <p>Portfolio: <b>0</b> (default)<br>
+    Programme: <b>0</b> (default)</p>
+    <table>
+    <tr>
+        <th>Title</th>
+        <th>ID</th>
+        <th>Phases</th>
+    </tr>
+    {% for project in projects %}
+    <tr>
+        <td>{{ project.title }}</td>
+        <td>{{ project.project_id }}</td>
+        <td>{{ project.phases|length }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
