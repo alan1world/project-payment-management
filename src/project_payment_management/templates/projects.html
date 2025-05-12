@@ -5,6 +5,32 @@
     <p>These projects belong to:</p>
     <p>Portfolio: <b>0</b> (default)<br>
     Programme: <b>0</b> (default)</p>
+    <div id="table"></div>
+    <script>
+        new gridjs.Grid({
+            columns: [
+                { id: 'title', name: 'Title' },
+                { id: 'project_id', name: 'ID' },
+                { id: 'phases', name: 'Phases', sort: false },
+                { id: 'contracts', name: 'Contracts', sort: false },
+            ],
+            data: [
+                {% for project in projects %}
+                    {
+                        title: '{{ project.title }}',
+                        project_id: '{{ project.project_id }}',
+                        phases: '{{ project.phases|length }}',
+                        contracts: '{{ project.contracts|length }}',
+                    },
+                {% endfor %}
+            ],
+            search: {
+                selector: (cell, rowIndex, cellIndex) => [0, 1, 4].includes(cellIndex) ? cell : null,
+            },
+            sort: true,
+            pagination: true,
+        }).render(document.getElementById('table'));
+    </script>
     <table>
     <tr>
         <th>Title</th>
