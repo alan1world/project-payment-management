@@ -1,7 +1,8 @@
 # import uuid
 
-
 from dataclasses import dataclass, field
+
+import project_payment_management.structures.contracts as psc
 
 
 @dataclass
@@ -22,6 +23,7 @@ class Project:
     package_id: str | None = None
     programme_id: str | None = None
     phases: list[Phase] = field(default_factory=list)
+    contracts: list[psc.Contract] = field(default_factory=list)
 
     @property
     def number_of_phases(self):

@@ -1,5 +1,6 @@
 import project_payment_management.structures.projects as psp
 import project_payment_management.data.samples as pds
+import project_payment_management.structures.contracts as psc
 
 from flask import render_template, url_for
 from project_payment_management import app
@@ -39,4 +40,15 @@ def projects():
     for i in pds.make_projects():
         user_projects.append(i)
     return render_template('projects.html', title='Projects', user=user, projects=user_projects)
+
+@app.route('/contracts')
+@app.route('/contracts/index')
+def contracts():
+    user = dict()
+    user["username"] = "User 1"
+    # contracts = samples["contracts"]
+    user_contracts: list[psc.Project] = []
+    for i in pds.make_contracts():
+        user_contracts.append(i)
+    return render_template('contracts.html', title='Contracts', user=user, contracts=user_contracts)
 

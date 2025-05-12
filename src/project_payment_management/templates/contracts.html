@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Contracts for: {{ user.username }}!</h1>
+    <p>These Contracts belong to:</p>
+    <p>Portfolio: <b>0</b> (default)<br>
+    Programme: <b>0</b> (default)<br>
+    Project: <b>0</b> (default)</p>
+    <div id="table"></div>
+    <script>
+        new gridjs.Grid({
+            columns: [
+                { id: 'title', name: 'Title' },
+                { id: 'contract_id', name: 'ID' },
+                { id: 'amount', name: 'Amount', sort: false },
+                { id: 'start_date', name: 'Start Date', sort: false },
+                { id: 'end_date', name: 'End Date', sort: false },
+                { id: 'owner', name: 'Owner' },
+            ],
+            data: [
+                {% for contract in contracts %}
+                    {
+                        title: '{{ contract.title }}',
+                        contract_id: '{{ contract.contract_id }}',
+                        amount: '{{ "£{:,.2f}".format(contract.amount) }}',
+                        start_date: '{{ contract.start_date.strftime('%d/%m/%Y') }}',
+                        end_date: '{{ contract.end_date.strftime('%d/%m/%Y') }}',
+                        owner: '{{ contract.owner }}'
+                    },
+                {% endfor %}
+            ],
+            search: {
+                selector: (cell, rowIndex, cellIndex) => [0, 1, 4].includes(cellIndex) ? cell : null,
+            },
+            sort: true,
+            pagination: true,
+        }).render(document.getElementById('table'));
+    </script>
+    <table>
+    <tr>
+        <th>Title</th>
+        <th>ID</th>
+        <th>Amount</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Owner</th>
+    </tr>
+    {% for contract in contracts %}
+    <tr>
+        <td>{{ contract.title }}</td>
+        <td>{{ contract.contract_id }}</td>
+        <td>{{ "£{:,.2f}".format(contract.amount) }}</td>
+        <td>{{ contract.start_date.strftime('%d/%m/%Y') }}</td>
+        <td>{{ contract.end_date.strftime('%d/%m/%Y') }}</td>
+        <td>{{ contract.owner }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

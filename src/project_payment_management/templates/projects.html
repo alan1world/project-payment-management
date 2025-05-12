@@ -10,12 +10,14 @@
         <th>Title</th>
         <th>ID</th>
         <th>Phases</th>
+        <th>Contracts</th>
     </tr>
     {% for project in projects %}
     <tr>
         <td>{{ project.title }}</td>
         <td>{{ project.project_id }}</td>
         <td>{{ project.phases|length }}</td>
+        <td>{{ project.contracts|length }}</td>
     </tr>
     {% endfor %}
     </table>
